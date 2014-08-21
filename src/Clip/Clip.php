@@ -65,7 +65,7 @@ class Clip
 	/**
 	*	
 	*/
-	const       PLUGINS_PATH        = "./plugins/";
+	const       PLUGINS_PATH        = "plugins/";
 	/**
 	*	
 	*/
@@ -110,7 +110,7 @@ class Clip
             $this->output = passthru ($command, $this->status);
 	    } elseif($this->function=="system") {
             $this->output =  system ($command, $this->status);
-	    }else{
+	    } else {
 	        $this->output = call_user_func(
 	            $this->function,
 	            $command,
@@ -130,10 +130,10 @@ class Clip
 	*/
 	public function binary( $binary )
 	{
-		if (!empty ($binary)) {
+		if (!empty($binary)) {
 			$this->binary = $binary;
 			return true;
-		}else{
+		} else {
 		    trigger_error("Empty binary",E_USER_ERROR);
 		}
 		return false;
@@ -189,8 +189,7 @@ class Clip
 	*/
 	public function _unset( $key )
 	{
-		if( array_key_exists( $key , $this->command ) )
-		{
+		if (array_key_exists($key, $this->command)) {
 			unset( $this->command[ $key ] ) ;
 		}
 		return $this;
@@ -269,8 +268,8 @@ class Clip
 	        if (!file_exists($file) XOR !is_file($file)) {
 	            trigger_error("Plugin file dont exists", E_USER_ERROR);
 	        }
-	        if (!@include_once($file)) {
-	            trigger_error("Plugin file error", E_USER_ERROR);
+	        if (!include_once($file)) {
+	            trigger_error("Plugin file error [$file]", E_USER_ERROR);
 	        }
 	    }
 	    // recheck class
@@ -283,6 +282,7 @@ class Clip
 	    }
 	    // get params
 	    $params = array_slice(func_get_args(),1);
+	    
 	    // instace with ReflectionClass; see more in
 	    // http://us2.php.net/manual/en/class.reflectionclass.php
 	    return call_user_func_array(
